@@ -1,110 +1,196 @@
 * {
     margin: 0;
     padding: 0;
-}
-
-img {
-    /* width: 100%; */
-    object-fit: cover;
+    box-sizing: border-box;
 }
 
 html {
-    font-family: sans-serif;
+    width: 100vw;
+    max-width: 1400px;
+    font-size: 1rem;
+    margin: 0 auto;
+}
+
+body {
+    background-color: #fff;
 }
 
 header {
     background: linear-gradient(90deg,#0E34A0, #2F3061);
-    color: white;
     text-align: center;
-    margin-bottom: 5px;
-}
-
-header h1 {
-    padding: 20px;
+    color: #fff;
+    padding: .8rem 0;
+    margin-bottom: .5rem;
 }
 
 main {
-    margin: 0 5px;
+    padding: 0 .4rem;
 }
-
+ 
 main form {
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: .4rem .8rem;
+    margin-bottom: .8rem;
 }
 
-main form > * {
-    margin-bottom: 5px;
+main form > *:not(:last-child) {
+    margin-bottom: .5rem;
+}
+
+main form input,
+main form button {
     border-radius: 5px;
+    padding: .4rem;
+    border: none;
 }
-
-main form h2 {
-    margin-bottom: 5px;
-}
-
 
 main form input {
     padding: 5px;
-}       
+    border: 1px solid;
+}
 
 main form button {
     background-color: #134EF1;
-    padding: 5px;
-    border: none;
     color: #fff;
-    font-weight: bold;
 }
 
-/* current weather div */
-/* <h3>${currentData.name} (${moment.unix(currentData.dt).format('DD/MM/YYYY')})</h3> */
-/* <div class="flex-container"> */
-    /* <div> */
-        /* <p>Temp: ${currentData.main.temp} \u00B0C</p> */
-        /* <p>Wind: ${currentData.wind.speed} KPH</p> */
-        /* <p>Humidity: ${currentData.main.humidity}%</p> */
-    /* </div> */
-    /* <div> */
-        /* <img src=https://openweathermap.org/img/w/${currentData.weather[0].icon}.png> */
-    /* </div> */
-    /* </div> */
-
-.current-weather,
-.five-day-forecast {
-    padding: 5px;
-    margin: 0 auto;
-    max-width: 250px;
+main form button:hover {
+    cursor: pointer;
 }
 
-.current-weather h3,
-.five-day-forecast h3 {
-    background-color: #E3D5CA;
-    padding: 5px;
-}
 
-.current-weather div:first-child {
+.weather {
     display: flex;
     flex-direction: column;
 }
 
-.flex-container {
-    background-color: #E3D5CA;
+.weather-container { 
+    width: 80%;
+    margin: 0 auto;
     display: flex;
-    margin-bottom: 10px;
-    padding: 5px;
+    flex-direction: column;
+    margin-bottom: .3rem;
 }
 
-.flex-container p {
-    margin-bottom: 2px;
+.current-weather .weather-container {
+    margin: 0;
+    padding: .4rem .8rem;
 }
 
-.flex-container div:last-child {
+.current-weather {
+    border: 1px solid #000;
+    padding: .4rem;
+}
+
+.weather-details-container {
+    display: flex;
+}
+
+.five-day-forecast .weather-container {
+    background-color: #E3D5CA;
+    padding: .4rem .8rem;
+}
+
+.weather-details-container > * {
+    padding: .4rem 0;
+}
+
+.weather-details-container div > * {
+    /* background: red; */
+    line-height: 2rem;
+}
+
+.weather-details-container div:last-child {
     flex: 1;
     display: flex;
     justify-content: center;
 }
 
 .five-day-header {
-    display: none;
+    padding: .5rem 0;
     text-align: center;
-    padding: 0px 5px;
+}
+
+@media (min-width: 481px) {
+
+    main {
+        align-items: flex-start;
+
+    }
+
+    .weather {
+        flex: 1;
+    }
+
+    .five-day-header {
+        text-align: left;
+        margin: 1rem 0;
+        padding: .4rem .8rem;
+    }
+
+    .five-day-forecast {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .five-day-forecast .weather-container {
+        min-width: 180px;
+        max-width: 300px;
+        margin: .3rem;
+        flex: 1;
+        padding: .4rem .8rem;
+        background-color: #E3D5CA;
+    }
+
+    .five-day-forecast .weather-details-container {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+    }
+
+    .five-day-forecast .weather-details-container div:last-child {
+        justify-content: flex-start;
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 769px) {
+    main {
+        display: flex;
+    }
+
+    main form {
+        margin-left: 0;
+        margin-right: .8rem;
+    }
+
+    .current-weather {
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .current-weather > * {
+        width: 100%;
+    }
+
+    .current-weather .weather-details-container div:last-child {
+        justify-content: flex-start;
+        padding-left: 1rem;
+    }
+
+    .five-day-forecast {
+        padding: .4rem .8rem;
+    }
+}
+
+@media (min-width: 1209px) {
+    
+    .five-day-forecast {
+        padding: 0;
+    }
+
+    .five-day-forecast .weather-container:first-child {
+        margin-left: 0;
+    }
 }
