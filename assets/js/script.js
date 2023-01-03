@@ -100,7 +100,6 @@ function getData(city,cities) {
             saveCities(cities);
             displayCities(cities);
         };
-        console.log(cities);
         
     // display error if city not found
     }).fail(function(err) {
