@@ -63,7 +63,6 @@ function displayFutureForecast(fiveDayData) {
             <div class="weather-details-container">
                 <div>
                     <p>Temp: ${fiveDayData.main.temp} \u00B0C</p>
-                    <p>Wind: ${fiveDayData.wind.speed} KPH</p>
                     <p>Humidity: ${fiveDayData.main.humidity}%</p>
                 </div>
                 <div>
