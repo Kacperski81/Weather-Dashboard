@@ -99,6 +99,7 @@ function getData(city,cities) {
             saveCities(cities);
             displayCities(cities);
         };
+        displayCities(cities);
         
     // display error if city not found
     }).fail(function(err) {
