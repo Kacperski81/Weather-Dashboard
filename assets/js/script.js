@@ -6,8 +6,9 @@ var apiKey = '134a7bca60f2f212f1b9faaf871be508';
 var searchedCities = $('.searched-cities');
 var fiveDayHeader = $('.five-day-header');
 
-// get wather for city already in localStorage
-function getPreviousCity(arr) {
+// get weather for city already in localStorage
+function getPreviousCity() {
+    var arr = getCities();
     $('.searched-city-paragraph').click(function() {
         currentWeather.html('');
         fiveDayForecast.html('');
@@ -17,11 +18,12 @@ function getPreviousCity(arr) {
 
 // display cities form localStorage
 function displayCities(arr) {
+    var arr = getCities();
     searchedCities.html('');
     arr.forEach(function(city) {
         searchedCities.append(`<p class="searched-city-paragraph">${city}</p>`);
     });
-    getPreviousCity(arr);
+    getPreviousCity();
 }
 
 // save cities to localStorage
@@ -98,6 +100,8 @@ function getData(city,cities) {
             saveCities(cities);
             displayCities(cities);
         };
+        console.log(cities);
+        
     // display error if city not found
     }).fail(function(err) {
         displayCities(cities);
@@ -109,10 +113,10 @@ function getData(city,cities) {
 
 // search for required city
 function serchCity() {
+    var cities = getCities();
     form.submit(function (event) {
 
         // check if user was checking the weather before
-        var cities = getCities();
         event.preventDefault();
 
         // change user input to format first letter upper case rest letters in lower case
@@ -131,19 +135,21 @@ function serchCity() {
         searchedCities.html('');
         
     });
+    
+    displayCities(cities);
 }
 
 function init() {
     serchCity();
     var cities = getCities();
     if(cities.length) {
-        getPreviousCity(cities);  
-        displayCities(cities);
+        getPreviousCity();  
+        displayCities();
     };
     searchedCities.click(function() {
-        getPreviousCity(cities);
-        displayCities(cities);
-    })
+        getPreviousCity();
+        displayCities();
+    });
 }
 
 
