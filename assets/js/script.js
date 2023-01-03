@@ -6,21 +6,35 @@ var apiKey = '134a7bca60f2f212f1b9faaf871be508';
 var searchedCities = $('.searched-cities');
 var fiveDayHeader = $('.five-day-header');
 
-function displayCities(arr) {
-    console.log(arr);
-    arr.forEach(function(city) {
-        searchedCities.append(`<p class="searched-city-paragraph">${city}</p>`);
-    })    
+// get wather for city already in localStorage
+function getPreviousCity(arr) {
+    $('.searched-city-paragraph').click(function() {
+        currentWeather.html('');
+        fiveDayForecast.html('');
+        getData($(this).text(),arr);
+    });
 }
 
+// display cities form localStorage
+function displayCities(arr) {
+    searchedCities.html('');
+    arr.forEach(function(city) {
+        searchedCities.append(`<p class="searched-city-paragraph">${city}</p>`);
+    });
+    getPreviousCity(arr);
+}
+
+// save cities to localStorage
 function saveCities(arr) {
     localStorage.setItem('cities',JSON.stringify(arr));
 }
 
+//get cities from localStorage
 function getCities() {
     return JSON.parse(localStorage.getItem('cities')) || [];
 }
 
+// display current weather
 function displayCurrentWeather(currentData) {
     currentWeather.append(`
         <div class="weather-container">
@@ -39,6 +53,7 @@ function displayCurrentWeather(currentData) {
     `);
 }
 
+// display 5-day forecast
 function displayFutureForecast(fiveDayData) {
     fiveDayForecast.append(`
         <div class="weather-container">
@@ -57,6 +72,7 @@ function displayFutureForecast(fiveDayData) {
     `);
 }
 
+// get data form openWeather API
 function getData(city,cities) {
     $.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
         .then(function(currentData) {
@@ -80,10 +96,10 @@ function getData(city,cities) {
         if(!cities.includes(city)) {
             cities.push(city.charAt(0).toUpperCase() + city.slice(1).toLowerCase());
             saveCities(cities);
-        }
-        displayCities(cities);
+            displayCities(cities);
+        };
+    // display error if city not found
     }).fail(function(err) {
-        console.log('no city');
         displayCities(cities);
         fiveDayHeader.css('display', 'none');
         currentWeather.css('border', 'none');
@@ -91,6 +107,7 @@ function getData(city,cities) {
     });    
 }
 
+// search for required city
 function serchCity() {
     form.submit(function (event) {
 
@@ -120,8 +137,14 @@ function init() {
     serchCity();
     var cities = getCities();
     if(cities.length) {
+        getPreviousCity(cities);  
         displayCities(cities);
-    }
+    };
+    searchedCities.click(function() {
+        getPreviousCity(cities);
+        displayCities(cities);
+    })
 }
+
 
 init();

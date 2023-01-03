@@ -65,6 +65,10 @@ main form button:hover {
     margin: .3rem;
 }
 
+.searched-cities:hover {
+    cursor: pointer;
+}
+
 .searched-city-paragraph {
     background-color: #bac1b8;
     text-align: center;
