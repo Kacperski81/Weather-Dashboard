@@ -81,14 +81,20 @@ function getData(city,cities) {
             var lon = currentData.coord.lon;
             displayCurrentWeather(currentData);
             return $.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
-    }).then(function(fiveDayData) {
-        var newFiveDayData = fiveDayData.list.filter(function(data) {
-            if(moment.unix(data.dt).format('DD') !== moment().format('DD')) {
-                return moment.unix(data.dt).add(1,'days').format('HH') === '09';           
+        }).then(function(fiveDayData) {
+            // console.log(fiveDayData.list)
+            var newFiveDayData = fiveDayData.list.filter(function(data) {
+                if(moment.unix(data.dt).format('DD') !== moment().format('DD')) {
+                    return moment.unix(data.dt).add(1,'days').format('HH') === '12';    
+                }
+                fiveDayHeader.css('display', 'block');
+                currentWeather.css('border', '1px solid #000');
+            });
+            if(newFiveDayData.length === 4) {
+                newFiveDayData.push(fiveDayData.list[fiveDayData.list.length -1]);
             }
-            fiveDayHeader.css('display', 'block');
-            currentWeather.css('border', '1px solid #000');
-        });
+        var hourOfDay = moment().format('hh');
+        localStorage.setItem(`weather${hourOfDay}`,JSON.stringify(newFiveDayData));
         newFiveDayData.forEach(function(item) {
             displayFutureForecast(item);
         });
